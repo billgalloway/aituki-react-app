@@ -1,5 +1,5 @@
-/* Additional Custom Styles */
-@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;500;600;700&display=swap');
+/* Custom Styles */
+/* Note: Font is imported in HTML head to avoid duplication */
 
 /* Custom Properties */
 :root {
@@ -10,6 +10,8 @@
     --background-white: #ffffff;
     --shadow-light: 0px 0px 4px rgba(0, 0, 0, 0.15);
     --shadow-medium: 0px 0px 12px rgba(0, 0, 0, 0.15);
+    --shadow-large: 0px 0px 25px rgba(0, 0, 0, 0.15);
+    --shadow-dock: 0 -4px 20px rgba(0, 0, 0, 0.15);
     --border-radius-large: 32px;
     --border-radius-medium: 16px;
     --border-radius-small: 8px;
@@ -38,6 +40,41 @@ body {
     scrollbar-width: none;
 }
 
+/* Utility Classes for Inline Styles */
+.notification-icon {
+    width: 24px;
+    height: 24px;
+}
+
+.meditation-bg {
+    background-image: url('images/yoga_2.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.gradient-bg-1 {
+    background-image: linear-gradient(135deg, rgba(34, 197, 94, 0.1), rgba(59, 130, 246, 0.1));
+}
+
+.gradient-bg-2 {
+    background-image: linear-gradient(135deg, rgba(168, 85, 247, 0.1), rgba(236, 72, 153, 0.1));
+}
+
+.gradient-bg-3 {
+    background-image: linear-gradient(135deg, rgba(251, 146, 60, 0.1), rgba(239, 68, 68, 0.1));
+}
+
+.gradient-bg-4 {
+    background-image: linear-gradient(135deg, rgba(34, 197, 94, 0.1), rgba(16, 185, 129, 0.1));
+}
+
+.dock-shadow {
+    box-shadow: var(--shadow-dock);
+    border-top-left-radius: var(--border-radius-large);
+    border-top-right-radius: var(--border-radius-large);
+}
+
 /* Smooth Scrolling */
 html {
     scroll-behavior: smooth;
@@ -55,7 +92,7 @@ header {
 
 .card-hover:hover {
     transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    box-shadow: var(--shadow-large);
 }
 
 /* Button Animations */
@@ -187,57 +224,56 @@ header {
     }
 }
 
-/* Status Bar Styling */
-.status-bar {
-    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-}
-
-/* Hero Card Enhancements */
-.hero-card {
+/* Card Enhancements - Consolidated */
+.card-base {
     background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
     border: 1px solid rgba(31, 86, 97, 0.1);
+    transition: all 0.3s ease;
 }
 
-.hero-card-image {
+.card-base:hover {
+    border-color: var(--primary-dark);
+    box-shadow: 0 4px 20px rgba(39, 204, 204, 0.15);
+}
+
+.card-image {
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
     transition: transform 0.3s ease;
 }
 
-.hero-card:hover .hero-card-image {
+.card-base:hover .card-image {
     transform: scale(1.05);
 }
 
-/* Schedule Card Enhancements */
-.schedule-card {
-    background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
-    border: 1px solid rgba(31, 86, 97, 0.1);
-    position: relative;
-    overflow: hidden;
+/* Additional Utility Classes */
+.text-primary {
+    color: var(--text-primary);
 }
 
-.schedule-card::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 3px;
-    background: linear-gradient(90deg, var(--primary-dark), var(--primary-color));
+.text-secondary {
+    color: var(--text-secondary);
 }
 
-/* Suggestion Card Enhancements */
-.suggestion-card {
-    background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
-    border: 1px solid rgba(31, 86, 97, 0.1);
-    transition: all 0.3s ease;
+.bg-primary {
+    background-color: var(--primary-color);
 }
 
-.suggestion-card:hover {
+.bg-primary-dark {
+    background-color: var(--primary-dark);
+}
+
+.bg-white {
+    background-color: var(--background-white);
+}
+
+.border-primary {
+    border-color: var(--primary-color);
+}
+
+.border-primary-dark {
     border-color: var(--primary-dark);
-    box-shadow: 0 4px 20px rgba(39, 204, 204, 0.15);
 }
 
 /* Rating Stars */
@@ -287,9 +323,7 @@ textarea:focus {
         --text-secondary: rgba(255, 255, 255, 0.7);
     }
     
-    .hero-card,
-    .schedule-card,
-    .suggestion-card {
+    .card-base {
         background: linear-gradient(135deg, #2a2a2a 0%, #1a1a1a 100%);
         border-color: rgba(255, 255, 255, 0.1);
     }

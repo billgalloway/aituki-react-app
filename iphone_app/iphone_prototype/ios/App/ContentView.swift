@@ -22,11 +22,51 @@ struct ContentView: View {
                         ])
 
                         TodayScroller(tiles: [
-                            .init(title: "Meditation", detail: "15 min relaxation", time: "20.30am", url: RemoteAssets.todayMeditation),
-                            .init(title: "Sleep pattern", detail: "80% quality", time: "8.00 hours", url: RemoteAssets.todaySleep),
-                            .init(title: "Diet", detail: "20 min cycling", time: "12.30am", url: RemoteAssets.todayDiet),
-                            .init(title: "Adaptogen therapy", detail: "Reushi mushroom", time: "8.30am", url: RemoteAssets.todayAdaptogen),
-                            .init(title: "Exercise", detail: "20 min cycling", time: "12.30am", url: RemoteAssets.todayExercise)
+                            .init(
+                                title: "Meditation",
+                                detail: "15 min relaxation",
+                                time: "20.30",
+                                timeUnit: "am",
+                                timeColor: AppColors.textPrimary,
+                                imageUrl: RemoteAssets.todayMeditation,
+                                iconUrls: [RemoteAssets.todayIcon1, RemoteAssets.todayIcon2]
+                            ),
+                            .init(
+                                title: "Perimenapause",
+                                detail: "Check weekly levels",
+                                time: "567",
+                                timeUnit: "High",
+                                timeColor: Color.red,
+                                imageUrl: RemoteAssets.todayPerimenopause,
+                                iconUrls: [RemoteAssets.todayIcon3]
+                            ),
+                            .init(
+                                title: "Diet",
+                                detail: "20 min cycling",
+                                time: "12.30",
+                                timeUnit: "am",
+                                timeColor: AppColors.textPrimary,
+                                imageUrl: RemoteAssets.todayDiet,
+                                iconUrls: [RemoteAssets.todayIcon1, RemoteAssets.todayIcon2]
+                            ),
+                            .init(
+                                title: "Adaptogen therapy",
+                                detail: "Reushi mushroom",
+                                time: "8.30",
+                                timeUnit: "am",
+                                timeColor: AppColors.textPrimary,
+                                imageUrl: RemoteAssets.todayAdaptogen,
+                                iconUrls: [RemoteAssets.todayIcon1]
+                            ),
+                            .init(
+                                title: "Exercise",
+                                detail: "20 min cycling",
+                                time: "12.30",
+                                timeUnit: "am",
+                                timeColor: AppColors.textPrimary,
+                                imageUrl: RemoteAssets.todayExercise,
+                                iconUrls: [RemoteAssets.todayIcon1, RemoteAssets.todayIcon2]
+                            )
                         ])
                         .padding(.top, 8)
                         
@@ -69,11 +109,11 @@ struct ContentView: View {
                         .padding(.top, 8)
 
                         SuggestionList(cards: [
-                            .init(image: RemoteAssets.contentCard1, title: "Hormone therapy", description: "Practical help and advice in transitioning through this challenging period of life", reviews: "145 reviews", users: "Used by 1024 people"),
-                            .init(image: RemoteAssets.contentCard2, title: "Managing your weight", description: "Track, monitor, and understand your weight loss. Set realistic goals and timeframes.", reviews: "145 reviews", users: "Used by 1024 people"),
-                            .init(image: RemoteAssets.contentCard3, title: "Fitness and strength", description: "Track, monitor, and understand your weight loss. Set realistic goals and timeframes.", reviews: "145 reviews", users: "Used by 1024 people"),
-                            .init(image: RemoteAssets.contentCard4, title: "Reducing stress", description: "Track, monitor, and understand your weight loss. Set realistic goals and timeframes.", reviews: "145 reviews", users: "Used by 1024 people"),
-                            .init(image: RemoteAssets.contentCard5, title: "Managing a condition", description: "Track, monitor, and understand your weight loss. Set realistic goals and timeframes.", reviews: "145 reviews", users: "Used by 1024 people")
+                            SuggestionCard(image: RemoteAssets.contentCard1, title: "Hormone therapy", description: "Practical help and advice in transitioning through this challenging period of life", reviews: "145 reviews", users: "Used by 1024 people"),
+                            SuggestionCard(image: RemoteAssets.contentCard2, title: "Managing your weight", description: "Track, monitor, and understand your weight loss. Set realistic goals and timeframes.", reviews: "145 reviews", users: "Used by 1024 people"),
+                            SuggestionCard(image: RemoteAssets.contentCard3, title: "Fitness and strength", description: "Track, monitor, and understand your weight loss. Set realistic goals and timeframes.", reviews: "145 reviews", users: "Used by 1024 people"),
+                            SuggestionCard(image: RemoteAssets.contentCard4, title: "Reducing stress", description: "Track, monitor, and understand your weight loss. Set realistic goals and timeframes.", reviews: "145 reviews", users: "Used by 1024 people"),
+                            SuggestionCard(image: RemoteAssets.contentCard5, title: "Managing a condition", description: "Track, monitor, and understand your weight loss. Set realistic goals and timeframes.", reviews: "145 reviews", users: "Used by 1024 people")
                         ])
                         .padding(.top, 8)
                         

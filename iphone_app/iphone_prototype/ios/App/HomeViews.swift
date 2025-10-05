@@ -125,29 +125,43 @@ struct HeroScroller: View {
             HStack(spacing: 24) { // 24px gap (6 * 4) - exact Figma spacing
                 ForEach(cards) { card in
                     VStack(alignment: .leading, spacing: 0) {
-                        if let imageName = card.url {
-                            Image(imageName)
-                                .resizable()
-                                .scaledToFill()
-                                .frame(width: 345, height: 170) // Exact Figma dimensions: 345/170 aspect ratio
-                                .clipped()
-                        } else {
-                            Rectangle().fill(Color(.systemGray5))
-                                .frame(width: 345, height: 170) // Exact Figma dimensions: 345/170 aspect ratio
-                                .clipped()
+                        // Image container with aspect ratio matching Figma design
+                        ZStack {
+                            if let imageUrl = card.url {
+                                AsyncImage(url: URL(string: imageUrl)) { image in
+                                    image
+                                        .resizable()
+                                        .aspectRatio(contentMode: .fill)
+                                } placeholder: {
+                                    Rectangle()
+                                        .fill(Color(.systemGray5))
+                                }
+                            } else {
+                                Rectangle()
+                                    .fill(Color(.systemGray5))
+                            }
                         }
+                        .frame(width: 345, height: 170) // Exact Figma dimensions: 345/170 aspect ratio
+                        .clipped()
                         
+                        // Content section with exact Figma padding
                         VStack(alignment: .leading, spacing: 0) {
                             HStack(spacing: 10) { // 10px gap (2.5 * 4) - exact Figma spacing
                                 VStack(alignment: .leading, spacing: 12) { // 12px gap (3 * 4) - exact Figma spacing
-                                    Text(card.title)
-                                        .font(AppFonts.nunito(20, weight: .medium))
-                                        .foregroundStyle(AppColors.textPrimary)
-                                        .tracking(0.25) // Exact Figma tracking
+                                    VStack(alignment: .leading, spacing: 0) {
+                                        Text(card.title)
+                                            .font(AppFonts.nunito(20, weight: .medium))
+                                            .foregroundStyle(AppColors.textPrimary)
+                                            .tracking(0.25) // Exact Figma tracking
+                                            .lineLimit(1)
+                                    }
+                                    .padding(.bottom, 4) // 4px bottom padding - exact Figma spacing
+                                    
                                     Text(card.subtitle)
                                         .font(AppFonts.nunito(14, weight: .medium))
                                         .foregroundStyle(AppColors.textPrimary.opacity(0.6))
                                         .tracking(0.1) // Exact Figma tracking
+                                        .lineLimit(1)
                                 }
                                 
                                 Spacer(minLength: 0)
@@ -156,10 +170,26 @@ struct HeroScroller: View {
                                 Button {
                                     // More options action
                                 } label: {
-                                    Image(systemName: "ellipsis")
-                                        .font(.system(size: 16, weight: .medium))
-                                        .foregroundStyle(AppColors.textPrimary)
-                                        .frame(width: 24, height: 24)
+                                    // Custom ellipsis icon matching Figma design
+                                    ZStack {
+                                        // Top dot
+                                        Circle()
+                                            .fill(AppColors.textPrimary)
+                                            .frame(width: 3, height: 3)
+                                            .offset(y: -6)
+                                        
+                                        // Middle dot
+                                        Circle()
+                                            .fill(AppColors.textPrimary)
+                                            .frame(width: 3, height: 3)
+                                        
+                                        // Bottom dot
+                                        Circle()
+                                            .fill(AppColors.textPrimary)
+                                            .frame(width: 3, height: 3)
+                                            .offset(y: 6)
+                                    }
+                                    .frame(width: 24, height: 24)
                                 }
                                 .buttonStyle(.plain)
                             }
@@ -189,85 +219,108 @@ struct TodayTile: Identifiable {
     let title: String
     let detail: String
     let time: String
-    let url: String?
+    let timeUnit: String
+    let timeColor: Color
+    let imageUrl: String
+    let iconUrls: [String]
 }
 
 struct TodayScroller: View {
     let tiles: [TodayTile]
     var body: some View {
         ScrollView(.horizontal, showsIndicators: false) {
-                HStack(spacing: 24) { // 24px gap (6 * 4) - exact Figma spacing
-                    ForEach(tiles) { tile in
-                        ZStack {
-                            // Background image fills entire card
-                            if let imageName = tile.url {
-                                Image(imageName)
+            HStack(spacing: 24) { // 24px gap - exact Figma spacing
+                ForEach(tiles) { tile in
+                    VStack(alignment: .leading, spacing: 0) {
+                        // Top section: Title + divider + icons
+                        VStack(alignment: .leading, spacing: 8) { // 8px gap - exact Figma spacing
+                            Text(tile.title)
+                                .font(AppFonts.nunito(14, weight: .medium))
+                                .foregroundStyle(AppColors.textPrimary)
+                                .tracking(0.15) // Exact Figma tracking
+                                .lineLimit(1)
+                            
+                            // Divider line - using SVG from Figma
+                            AsyncImage(url: URL(string: RemoteAssets.todayDivider)) { image in
+                                image
                                     .resizable()
-                                    .scaledToFill()
-                                    .frame(width: 153, height: 238) // Exact Figma dimensions
-                                    .clipped()
-                            } else {
-                                Rectangle().fill(Color(.systemGray5))
-                                    .frame(width: 153, height: 238) // Exact Figma dimensions
-                                    .clipped()
+                                    .aspectRatio(contentMode: .fit)
+                                    .frame(height: 1)
+                            } placeholder: {
+                                Rectangle()
+                                    .fill(AppColors.primaryDark)
+                                    .frame(height: 1)
                             }
                             
-                            // Content overlay with proper positioning
-                            VStack(alignment: .leading, spacing: 0) {
-                                // Top section: Title + divider + icons
-                                VStack(alignment: .leading, spacing: 8) { // 8px gap (2 * 4) - exact Figma spacing
-                                    Text(tile.title)
-                                        .font(AppFonts.nunito(14, weight: .medium))
-                                        .foregroundStyle(AppColors.textPrimary)
-                                        .tracking(0.15) // Exact Figma tracking
-                                    
-                                    // Divider line
-                                    Rectangle()
-                                        .fill(AppColors.primaryDark)
-                                        .frame(height: 1)
-                                    
-                                    // Icons (placeholder for now)
-                                    HStack(spacing: 4) {
-                                        Circle()
-                                            .fill(AppColors.primaryDark)
+                            // Icons - using SVGs from Figma
+                            HStack(spacing: 4) {
+                                ForEach(tile.iconUrls, id: \.self) { iconUrl in
+                                    AsyncImage(url: URL(string: iconUrl)) { image in
+                                        image
+                                            .resizable()
+                                            .aspectRatio(contentMode: .fit)
                                             .frame(width: 9.618, height: 9.618) // Exact Figma icon size
+                                    } placeholder: {
                                         Circle()
                                             .fill(AppColors.primaryDark)
                                             .frame(width: 9.618, height: 9.618)
                                     }
-                                    .frame(maxWidth: .infinity, alignment: .trailing)
-                                }
-                                
-                                Spacer(minLength: 0)
-                                
-                                // Bottom section: Time + detail
-                                VStack(alignment: .leading, spacing: 4) {
-                                    Text(tile.time)
-                                        .font(AppFonts.nunito(20, weight: .medium))
-                                        .foregroundStyle(AppColors.textPrimary)
-                                        .tracking(0.25) // Exact Figma tracking
-                                    
-                                    Text(tile.detail)
-                                        .font(AppFonts.nunito(14, weight: .regular))
-                                        .foregroundStyle(AppColors.textPrimary)
-                                        .tracking(0.17) // Exact Figma tracking
                                 }
                             }
-                            .padding(10) // Exact Figma padding
+                            .frame(maxWidth: .infinity, alignment: .trailing)
                         }
-                        .frame(width: 153, height: 238) // Exact Figma dimensions
-                        .background(AppColors.background)
-                        .clipShape(RoundedRectangle(cornerRadius: 8)) // Exact Figma radius
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 8)
-                                .stroke(AppColors.textPrimary.opacity(0.15), lineWidth: 1) // Exact Figma border
-                        )
+                        
+                        Spacer(minLength: 0)
+                        
+                        // Main image - using Figma image URL
+                        AsyncImage(url: URL(string: tile.imageUrl)) { image in
+                            image
+                                .resizable()
+                                .aspectRatio(contentMode: .fill)
+                                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                                .clipped()
+                        } placeholder: {
+                            Rectangle()
+                                .fill(Color(.systemGray5))
+                                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                        }
+                        
+                        // Bottom section: Time + detail
+                        VStack(alignment: .leading, spacing: 4) {
+                            HStack(alignment: .bottom, spacing: 0) {
+                                Text(tile.time)
+                                    .font(AppFonts.nunito(20, weight: .medium))
+                                    .foregroundStyle(AppColors.textPrimary)
+                                    .tracking(0.25) // Exact Figma tracking
+                                
+                                Text(tile.timeUnit)
+                                    .font(AppFonts.nunito(12.9, weight: .medium))
+                                    .foregroundStyle(tile.timeColor)
+                                    .tracking(0.25) // Exact Figma tracking
+                                    .padding(.leading, 2)
+                            }
+                            
+                            Text(tile.detail)
+                                .font(AppFonts.nunito(14, weight: .regular))
+                                .foregroundStyle(AppColors.textPrimary)
+                                .tracking(0.17) // Exact Figma tracking
+                                .lineLimit(1)
+                        }
                     }
+                    .padding(10) // Exact Figma padding
+                    .frame(width: 153, height: 238) // Exact Figma dimensions
+                    .background(AppColors.background)
+                    .clipShape(RoundedRectangle(cornerRadius: 8)) // Exact Figma radius
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 8)
+                            .stroke(AppColors.textPrimary.opacity(0.15), lineWidth: 1) // Exact Figma border
+                    )
                 }
-                .padding(.horizontal)
             }
+            .padding(.horizontal)
         }
     }
+}
 
 struct SuggestionCard: Identifiable {
     let id = UUID()
@@ -496,8 +549,52 @@ struct HomeViews_Previews: PreviewProvider {
             
             // Today Scroller Preview
             TodayScroller(tiles: [
-                TodayTile(title: "Morning", detail: "Start your day", time: "8:00 AM", url: nil),
-                TodayTile(title: "Afternoon", detail: "Stay active", time: "2:00 PM", url: nil)
+                TodayTile(
+                    title: "Meditation",
+                    detail: "15 min relaxation",
+                    time: "20.30",
+                    timeUnit: "am",
+                    timeColor: AppColors.textPrimary,
+                    imageUrl: RemoteAssets.todayMeditation,
+                    iconUrls: [RemoteAssets.todayIcon1, RemoteAssets.todayIcon2]
+                ),
+                TodayTile(
+                    title: "Perimenapause",
+                    detail: "Check weekly levels",
+                    time: "567",
+                    timeUnit: "High",
+                    timeColor: AppColors.textPrimary,
+                    imageUrl: RemoteAssets.todayMeditation,
+                    iconUrls: [RemoteAssets.todayIcon1, RemoteAssets.todayIcon2]
+                ),
+                TodayTile(
+                    title: "Meditation",
+                    detail: "15 min relaxation",
+                    time: "567",
+                    timeUnit: "High",
+                    timeColor: AppColors.textPrimary,
+                    imageUrl: RemoteAssets.todayMeditation,
+                    iconUrls: [RemoteAssets.todayIcon1, RemoteAssets.todayIcon2]
+                ),
+                TodayTile(
+                    title: "Meditation",
+                    detail: "15 min relaxation",
+                    time: "20.30",
+                    timeUnit: "am",
+                    timeColor: AppColors.textPrimary,
+                    imageUrl: RemoteAssets.todayMeditation,
+                    iconUrls: [RemoteAssets.todayIcon1, RemoteAssets.todayIcon2]
+                ),
+                TodayTile(
+                    title: "Meditation",
+                    detail: "15 min relaxation",
+                    time: "20.30",
+                    timeUnit: "am",
+                    timeColor: AppColors.textPrimary,
+                    imageUrl: RemoteAssets.todayMeditation,
+                    iconUrls: [RemoteAssets.todayIcon1, RemoteAssets.todayIcon2]
+                ),
+                
             ])
             .frame(height: 250)
             
