@@ -7,7 +7,7 @@ struct HeaderView: View {
             Rectangle()
                 .fill(AppColors.primary)
                 .frame(height: 44)
-                .padding(.vertical, 8) // Figma: py-2 (8px)
+                .padding(.vertical, 0) // Figma: py-2 (8px)
             
             // Icon Bar (Hamburger + Avatar)
             HStack {
