@@ -3,6 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "homepage": ".",
+  "engines": {
+    "node": ">=18.0.0"
+  },
   "dependencies": {
     "@mui/material": "^5.15.0",
     "@mui/icons-material": "^5.15.0",
