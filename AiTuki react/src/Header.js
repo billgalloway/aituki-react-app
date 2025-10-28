@@ -1,0 +1,209 @@
+import React from 'react';
+import {
+  IconButton,
+  Button,
+  Avatar,
+  Badge,
+  Box,
+  Typography,
+  Container
+} from '@mui/material';
+import IconLibrary from './IconLibrary';
+
+// Image assets from Figma
+const hamburgerIcon1 = "https://www.figma.com/api/mcp/asset/8fcfe8d0-7e5d-4c75-be1b-523e2a750a15";
+const hamburgerIcon2 = "https://www.figma.com/api/mcp/asset/1942c52c-fce3-4f53-bd3f-2ed5bf2c3949";
+const personIcon1 = "https://www.figma.com/api/mcp/asset/093062f1-9610-44f3-9469-f8526287af2e";
+const personIcon2 = "https://www.figma.com/api/mcp/asset/95d05574-9e3f-4eed-a219-1ff14e7c1dde";
+const personIcon3 = "https://www.figma.com/api/mcp/asset/cf971138-618e-460f-bdd4-3c2e82746f9f";
+const arrowIcon1 = "https://www.figma.com/api/mcp/asset/e94a93c3-d324-445c-b1d7-5ef7a70704e5";
+const arrowIcon2 = "https://www.figma.com/api/mcp/asset/447139c8-306f-4dd5-af59-5aed0af4cb1d";
+const arrowIcon3 = "https://www.figma.com/api/mcp/asset/ae8ed121-834c-463e-9b6a-acd75e7e27e4";
+
+const Header: React.FC = () => {
+  return (
+    <Box
+      sx={{
+        backgroundColor: '#69f0f0', // Primary main color from Figma
+        borderRadius: '0 0 32px 32px',
+        boxShadow: '0px 0px 12px 0px rgba(0,0,0,0.15), 0px 0px 4px 0px rgba(0,0,0,0.25)',
+        width: '100%',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'flex-end',
+        position: 'sticky',
+        top: 0,
+        zIndex: 1000
+      }}
+    >
+      {/* Status Bar - iPhone */}
+      <Box
+        sx={{
+          width: '100%',
+          height: '8px',
+          flexShrink: 0
+        }}
+      />
+      
+      {/* Icon Bar */}
+      <Container
+        maxWidth={false}
+        sx={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          padding: '16px',
+          borderRadius: '0 0 32px 32px',
+          flexShrink: 0,
+          width: '100%'
+        }}
+      >
+            {/* Left side - Hamburger menu */}
+            <Box sx={{ display: 'flex', gap: '16px', alignItems: 'center' }}>
+              <IconButton
+                sx={{
+                  width: 24,
+                  height: 24,
+                  padding: 0,
+                  '&:hover': {
+                    backgroundColor: 'transparent'
+                  }
+                }}
+              >
+                <IconLibrary iconName="menu" size={24} color="#1f5661" />
+              </IconButton>
+            </Box>
+
+            {/* Right side - Avatar with badge */}
+            <Box sx={{ display: 'flex', gap: '16px', alignItems: 'center' }}>
+              <Badge
+                overlap="circular"
+                anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+                badgeContent={
+                  <Box
+                    sx={{
+                      backgroundColor: '#ef6c00', // Warning main color
+                      color: '#ffffff',
+                      borderRadius: '100px',
+                      minWidth: '12px',
+                      height: '12px',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      fontSize: '12px',
+                      fontWeight: 500,
+                      fontFamily: 'Nunito Sans, sans-serif',
+                      padding: '0 6.5px'
+                    }}
+                  >
+                    4
+                  </Box>
+                }
+              >
+                <Avatar
+                  sx={{
+                    width: 40,
+                    height: 40,
+                    backgroundColor: '#98ffff', // Primary light color
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center'
+                  }}
+                >
+                  <IconLibrary iconName="user" size={24} color="#1f5661" />
+                </Avatar>
+              </Badge>
+            </Box>
+      </Container>
+
+      {/* Prompt Bar */}
+      <Box
+        sx={{
+          width: '100%',
+          padding: '8px 24px 24px 24px',
+          display: 'flex',
+          flexDirection: 'column',
+          gap: '10px',
+          flexShrink: 0
+        }}
+      >
+        <Button
+          variant="contained"
+          sx={{
+            backgroundColor: '#ffffff',
+            color: '#1f5661', // Text primary color
+            borderRadius: '32px',
+            padding: '16px 22px',
+            width: '100%',
+            textTransform: 'none',
+            fontFamily: 'Nunito Sans, sans-serif',
+            fontSize: '14px',
+            fontWeight: 400,
+            lineHeight: '24px',
+            letterSpacing: '0.4px',
+            boxShadow: 'none',
+            '&:hover': {
+              backgroundColor: '#f5f5f5',
+              boxShadow: 'none'
+            },
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            gap: '8px'
+          }}
+        >
+          <Typography
+            sx={{
+              fontFamily: 'Nunito Sans, sans-serif',
+              fontSize: '14px',
+              fontWeight: 400,
+              lineHeight: '24px',
+              color: '#1f5661',
+              letterSpacing: '0.4px'
+            }}
+          >
+            Get help from your digital twin
+          </Typography>
+          <Box sx={{ position: 'relative', width: 18, height: 24 }}>
+            <img
+              src={arrowIcon1}
+              alt="Arrow icon part 1"
+              style={{
+                position: 'absolute',
+                top: '20.83%',
+                left: '16.67%',
+                width: '25%',
+                height: '70.84%'
+              }}
+            />
+            <img
+              src={arrowIcon2}
+              alt="Arrow icon part 2"
+              style={{
+                position: 'absolute',
+                top: '20.83%',
+                left: '58.33%',
+                width: '25%',
+                height: '70.84%'
+              }}
+            />
+            <img
+              src={arrowIcon3}
+              alt="Arrow icon part 3"
+              style={{
+                position: 'absolute',
+                top: '8.33%',
+                left: '41.67%',
+                width: '16.66%',
+                height: '83.34%'
+              }}
+            />
+          </Box>
+        </Button>
+      </Box>
+    </Box>
+  );
+};
+
+export default Header;
