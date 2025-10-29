@@ -7,18 +7,10 @@ import {
   CardMedia,
   Button,
   IconButton,
-  Chip,
-  Rating,
-  Container,
-  Grid,
-  Paper
+  Rating
 } from '@mui/material';
 import {
-  MoreVert as MoreVertIcon,
-  Add as AddIcon,
-  Star as StarIcon,
-  StarHalf as StarHalfIcon,
-  StarBorder as StarBorderIcon
+  MoreVert as MoreVertIcon
 } from '@mui/icons-material';
 import IconLibrary from './IconLibrary';
 

@@ -1,7 +1,6 @@
 import React from 'react';
 import {
   Box,
-  IconButton,
   Paper
 } from '@mui/material';
 import IconLibrary from './IconLibrary';

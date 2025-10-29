@@ -11,11 +11,6 @@ import {
 import IconLibrary from './IconLibrary';
 
 // Image assets from Figma
-const hamburgerIcon1 = "https://www.figma.com/api/mcp/asset/8fcfe8d0-7e5d-4c75-be1b-523e2a750a15";
-const hamburgerIcon2 = "https://www.figma.com/api/mcp/asset/1942c52c-fce3-4f53-bd3f-2ed5bf2c3949";
-const personIcon1 = "https://www.figma.com/api/mcp/asset/093062f1-9610-44f3-9469-f8526287af2e";
-const personIcon2 = "https://www.figma.com/api/mcp/asset/95d05574-9e3f-4eed-a219-1ff14e7c1dde";
-const personIcon3 = "https://www.figma.com/api/mcp/asset/cf971138-618e-460f-bdd4-3c2e82746f9f";
 const arrowIcon1 = "https://www.figma.com/api/mcp/asset/e94a93c3-d324-445c-b1d7-5ef7a70704e5";
 const arrowIcon2 = "https://www.figma.com/api/mcp/asset/447139c8-306f-4dd5-af59-5aed0af4cb1d";
 const arrowIcon3 = "https://www.figma.com/api/mcp/asset/ae8ed121-834c-463e-9b6a-acd75e7e27e4";

@@ -58,7 +58,6 @@ const IconLibrary = ({
     'laptop': 'laptop',
     'tablet': 'tablet',
     'watch': 'watch',
-    'camera': 'camera_alt',
     'headphones': 'headphones',
     'bluetooth': 'bluetooth',
     'wifi': 'wifi',
@@ -164,9 +163,7 @@ const IconLibrary = ({
     'music': 'music_note',
     'movie': 'movie',
     'game': 'sports_esports',
-    'camera': 'camera_alt',
     'paint': 'palette',
-    'book': 'menu_book',
     'puzzle': 'extension',
     
     // Safety & Security
