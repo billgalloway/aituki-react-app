@@ -10,18 +10,19 @@ The app has been optimized for Cloudflare Pages deployment with the following ch
 - `build:cloudflare`: Uses `CI=false` to prevent build failures from ESLint warnings
 - Standard `build`: Regular React build process
 
-### 2. Cloudflare Configuration Files
+### 2. Cloudflare Pages Configuration
 
-#### `wrangler.toml`
-```toml
-[build]
-  command = "npm run build:cloudflare"
-  publish = "build"
+**Note:** Cloudflare Pages uses the web dashboard for configuration, not wrangler.toml files.
 
-[build.environment]
-  NODE_VERSION = "18"
-  CI = "false"
-```
+#### Build Settings (configure in Cloudflare Pages dashboard)
+- **Build Command:** `npm run build:cloudflare`
+- **Build Output Directory:** `build`
+- **Root Directory:** `AiTuki react`
+- **Framework Preset:** Create React App
+
+#### Environment Variables (set in dashboard)
+- `NODE_VERSION`: `18`
+- `CI`: `false`
 
 #### `_headers`
 - Security headers for production
@@ -38,13 +39,23 @@ The app has been optimized for Cloudflare Pages deployment with the following ch
 
 ## Deployment Steps
 
-1. **Connect Repository**: Link your GitHub repository to Cloudflare Pages
-2. **Build Settings**: 
-   - Build command: `npm run build:cloudflare`
-   - Build output directory: `build`
-   - Node.js version: 18
-3. **Environment Variables**: Set `CI=false` if needed
-4. **Deploy**: Cloudflare will automatically build and deploy
+1. **Connect Repository**: 
+   - Go to Cloudflare Pages dashboard
+   - Click "Create a project"
+   - Connect your GitHub repository
+   - Select the repository: `billgalloway/aituki-react-app`
+
+2. **Configure Build Settings**:
+   - **Framework preset**: Create React App
+   - **Root directory**: `AiTuki react`
+   - **Build command**: `npm run build:cloudflare`
+   - **Build output directory**: `build`
+
+3. **Set Environment Variables**:
+   - `NODE_VERSION`: `18`
+   - `CI`: `false`
+
+4. **Deploy**: Click "Save and Deploy" - Cloudflare will automatically build and deploy
 
 ## Local Development
 
