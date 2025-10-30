@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import ReactDOM from 'react-dom/client';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
-import { Box } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import Header from './Header';
 import LandingContent from './LandingContent';
+import GoalsContent from './GoalsContent';
 import BottomNavigation from './BottomNavigation';
 
 // Create a custom theme to match the Figma design
@@ -36,12 +37,14 @@ const theme = createTheme({
   },
 });
 
-const root = ReactDOM.createRoot(
-  document.getElementById('root') as HTMLElement
-);
+const App = () => {
+  const [activeTab, setActiveTab] = useState<string>('home');
 
-root.render(
-  <React.StrictMode>
+  const handleTabChange = (tab: string) => {
+    setActiveTab(tab);
+  };
+
+  return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <Box
@@ -60,10 +63,24 @@ root.render(
             overflowX: 'hidden'
           }}
         >
-          <LandingContent />
+          {activeTab === 'home' && <LandingContent />}
+          {activeTab === 'target' && <GoalsContent />}
+          {activeTab === 'data' && <Box sx={{ padding: '24px' }}><Typography>Data tab - Coming soon</Typography></Box>}
+          {activeTab === 'measure' && <Box sx={{ padding: '24px' }}><Typography>Measure tab - Coming soon</Typography></Box>}
+          {activeTab === 'tuki' && <Box sx={{ padding: '24px' }}><Typography>Tuki tab - Coming soon</Typography></Box>}
         </Box>
-        <BottomNavigation />
+        <BottomNavigation activeTab={activeTab} onTabChange={handleTabChange} />
       </Box>
     </ThemeProvider>
+  );
+};
+
+const root = ReactDOM.createRoot(
+  document.getElementById('root') as HTMLElement
+);
+
+root.render(
+  <React.StrictMode>
+    <App />
   </React.StrictMode>
 );

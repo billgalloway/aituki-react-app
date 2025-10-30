@@ -6,34 +6,40 @@ import {
 import IconLibrary from './IconLibrary';
 
 
-const BottomNavigation: React.FC = () => {
+const BottomNavigation = ({ activeTab, onTabChange }) => {
   const navigationItems = [
     {
       name: 'home',
       icon: 'workbench',
-      isActive: true
+      iconName: 'home'
     },
     {
       name: 'target',
       icon: 'trace',
-      isActive: false
+      iconName: 'target'
     },
     {
       name: 'data',
       icon: 'watch',
-      isActive: false
+      iconName: 'data'
     },
     {
       name: 'measure',
       icon: 'heartRate',
-      isActive: false
+      iconName: 'heart'
     },
     {
       name: 'tuki',
       icon: 'jump',
-      isActive: false
+      iconName: 'person'
     }
   ];
+
+  const handleTabClick = (tabName) => {
+    if (onTabChange && typeof onTabChange === 'function') {
+      onTabChange(tabName);
+    }
+  };
 
   return (
     <Paper
@@ -53,36 +59,52 @@ const BottomNavigation: React.FC = () => {
         justifyContent: 'space-between'
       }}
     >
-      {navigationItems.map((item, index) => (
-        <Box
-          key={index}
-          sx={{
-            position: 'relative',
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            justifyContent: 'center',
-            padding: '12px',
-            borderRadius: '8px',
-            backgroundColor: item.isActive ? '#27cccc' : 'transparent',
-            cursor: 'pointer',
-            transition: 'all 0.2s ease-in-out',
-            '&:hover': {
-              backgroundColor: item.isActive ? '#27cccc' : 'rgba(39, 204, 204, 0.1)'
-            }
-          }}
-        >
-          <IconLibrary 
-            iconName={item.icon === 'workbench' ? 'home' : 
-                     item.icon === 'trace' ? 'target' : 
-                     item.icon === 'watch' ? 'data' : 
-                     item.icon === 'heartRate' ? 'heart' : 
-                     item.icon === 'jump' ? 'person' : 'home'} 
-            size={24} 
-            color="#1f5661" 
-          />
-        </Box>
-      ))}
+      {navigationItems.map((item, index) => {
+        const isActive = activeTab === item.name;
+        return (
+          <Box
+            key={index}
+            onClick={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              handleTabClick(item.name);
+            }}
+            onMouseDown={(e) => {
+              e.preventDefault();
+            }}
+            sx={{
+              position: 'relative',
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              justifyContent: 'center',
+              padding: '12px',
+              borderRadius: '8px',
+              backgroundColor: isActive ? '#27cccc' : 'transparent',
+              cursor: 'pointer',
+              transition: 'all 0.2s ease-in-out',
+              userSelect: 'none',
+              WebkitUserSelect: 'none',
+              pointerEvents: 'auto',
+              minWidth: '48px',
+              minHeight: '48px',
+              '&:hover': {
+                backgroundColor: isActive ? '#27cccc' : 'rgba(39, 204, 204, 0.1)'
+              },
+              '&:active': {
+                transform: 'scale(0.95)'
+              }
+            }}
+          >
+            <IconLibrary 
+              iconName={item.iconName} 
+              size={24} 
+              color="#1f5661"
+              sx={{ pointerEvents: 'none' }}
+            />
+          </Box>
+        );
+      })}
     </Paper>
   );
 };
