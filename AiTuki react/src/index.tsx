@@ -2,10 +2,13 @@ import React, { useState } from 'react';
 import ReactDOM from 'react-dom/client';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
-import { Box, Typography } from '@mui/material';
+import { Box } from '@mui/material';
 import Header from './Header';
 import LandingContent from './LandingContent';
 import GoalsContent from './GoalsContent';
+import DataContent from './DataContent';
+import HealthContent from './HealthContent';
+import TwinContent from './TwinContent';
 import BottomNavigation from './BottomNavigation';
 
 // Create a custom theme to match the Figma design
@@ -65,9 +68,9 @@ const App = () => {
         >
           {activeTab === 'home' && <LandingContent />}
           {activeTab === 'target' && <GoalsContent />}
-          {activeTab === 'data' && <Box sx={{ padding: '24px' }}><Typography>Data tab - Coming soon</Typography></Box>}
-          {activeTab === 'measure' && <Box sx={{ padding: '24px' }}><Typography>Measure tab - Coming soon</Typography></Box>}
-          {activeTab === 'tuki' && <Box sx={{ padding: '24px' }}><Typography>Tuki tab - Coming soon</Typography></Box>}
+          {activeTab === 'data' && <DataContent />}
+          {activeTab === 'measure' && <HealthContent />}
+          {activeTab === 'tuki' && <TwinContent />}
         </Box>
         <BottomNavigation activeTab={activeTab} onTabChange={handleTabChange} />
       </Box>
