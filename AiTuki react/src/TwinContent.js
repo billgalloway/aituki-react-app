@@ -257,7 +257,10 @@ const TwinContent = () => {
             display: 'flex',
             gap: '24px',
             overflowX: 'auto',
+            overflowY: 'hidden',
             padding: '12px',
+            WebkitOverflowScrolling: 'touch',
+            touchAction: 'pan-x',
             '&::-webkit-scrollbar': {
               display: 'none'
             },

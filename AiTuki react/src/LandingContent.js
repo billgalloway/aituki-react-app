@@ -221,7 +221,10 @@ const LandingContent = () => {
           display: 'flex',
           gap: '24px',
           overflowX: 'auto',
+          overflowY: 'hidden',
           paddingBottom: '8px',
+          WebkitOverflowScrolling: 'touch',
+          touchAction: 'pan-x',
           '&::-webkit-scrollbar': {
             display: 'none'
           },
@@ -317,7 +320,10 @@ const LandingContent = () => {
           gap: '24px',
           height: '250px',
           overflowX: 'auto',
+          overflowY: 'hidden',
           paddingBottom: '8px',
+          WebkitOverflowScrolling: 'touch',
+          touchAction: 'pan-x',
           '&::-webkit-scrollbar': {
             display: 'none'
           },
