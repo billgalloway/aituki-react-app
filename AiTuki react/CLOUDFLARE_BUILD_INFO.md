@@ -19,3 +19,4 @@ This is a standard React app built with Create React App.
 - Do NOT use Wrangler for deployment
 - Use standard Pages deployment process
 - The `_headers` and `_redirects` files handle routing and caching
+
