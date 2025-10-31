@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useMemo } from 'react';
 import ReactDOM from 'react-dom/client';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import { Box } from '@mui/material';
+import { BrowserRouter, Routes, Route, useLocation, useNavigate } from 'react-router-dom';
 import Header from './Header';
 import LandingContent from './LandingContent';
 import GoalsContent from './GoalsContent';
@@ -40,37 +41,45 @@ const theme = createTheme({
   },
 });
 
-const App = () => {
-  const [activeTab, setActiveTab] = useState<string>('home');
+const pathForTab: Record<string, string> = {
+  home: '/',
+  target: '/goals',
+  data: '/data',
+  measure: '/health',
+  tuki: '/twin'
+};
+
+const tabForPath = (pathname: string): string => {
+  if (pathname.startsWith('/goals')) return 'target';
+  if (pathname.startsWith('/data')) return 'data';
+  if (pathname.startsWith('/health')) return 'measure';
+  if (pathname.startsWith('/twin')) return 'tuki';
+  return 'home';
+};
+
+const AppShell = () => {
+  const location = useLocation();
+  const navigate = useNavigate();
+  const activeTab = useMemo(() => tabForPath(location.pathname), [location.pathname]);
 
   const handleTabChange = (tab: string) => {
-    setActiveTab(tab);
+    const path = pathForTab[tab] ?? '/';
+    if (location.pathname !== path) navigate(path);
   };
 
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <Box
-        sx={{
-          height: '100vh',
-          overflow: 'hidden',
-          display: 'flex',
-          flexDirection: 'column'
-        }}
-      >
+      <Box sx={{ height: '100vh', overflow: 'hidden', display: 'flex', flexDirection: 'column' }}>
         <Header />
-        <Box
-          sx={{
-            flex: 1,
-            overflowY: 'auto',
-            overflowX: 'hidden'
-          }}
-        >
-          {activeTab === 'home' && <LandingContent />}
-          {activeTab === 'target' && <GoalsContent />}
-          {activeTab === 'data' && <DataContent />}
-          {activeTab === 'measure' && <HealthContent />}
-          {activeTab === 'tuki' && <TwinContent />}
+        <Box sx={{ flex: 1, overflowY: 'auto', overflowX: 'hidden' }}>
+          <Routes>
+            <Route path="/" element={<LandingContent />} />
+            <Route path="/goals" element={<GoalsContent />} />
+            <Route path="/data" element={<DataContent />} />
+            <Route path="/health" element={<HealthContent />} />
+            <Route path="/twin" element={<TwinContent />} />
+          </Routes>
         </Box>
         <BottomNavigation activeTab={activeTab} onTabChange={handleTabChange} />
       </Box>
@@ -84,6 +93,8 @@ const root = ReactDOM.createRoot(
 
 root.render(
   <React.StrictMode>
-    <App />
+    <BrowserRouter>
+      <AppShell />
+    </BrowserRouter>
   </React.StrictMode>
 );
