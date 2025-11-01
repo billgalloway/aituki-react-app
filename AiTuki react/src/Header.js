@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useMemo } from 'react';
 import {
   IconButton,
   Button,
@@ -6,8 +6,15 @@ import {
   Badge,
   Box,
   Typography,
-  Container
+  Container,
+  Drawer,
+  List,
+  ListItemButton,
+  ListItemIcon,
+  ListItemText,
+  Divider
 } from '@mui/material';
+import { useLocation, useNavigate } from 'react-router-dom';
 import IconLibrary from './IconLibrary';
 
 // Image assets from Figma
@@ -16,6 +23,25 @@ const arrowIcon2 = "https://www.figma.com/api/mcp/asset/447139c8-306f-4dd5-af59-
 const arrowIcon3 = "https://www.figma.com/api/mcp/asset/ae8ed121-834c-463e-9b6a-acd75e7e27e4";
 
 const Header: React.FC = () => {
+  const [menuOpen, setMenuOpen] = useState(false);
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const activePath = location.pathname;
+
+  const navItems = useMemo(() => ([
+    { label: 'Home', path: '/', iconName: 'home' },
+    { label: 'Goals', path: '/goals', iconName: 'target' },
+    { label: 'Data', path: '/data', iconName: 'data' },
+    { label: 'Health', path: '/health', iconName: 'heart' },
+    { label: 'Twin', path: '/twin', iconName: 'person' }
+  ]), []);
+
+  const goTo = (path) => {
+    setMenuOpen(false);
+    if (activePath !== path) navigate(path);
+  };
+
   return (
     <Box
       sx={{
@@ -65,6 +91,7 @@ const Header: React.FC = () => {
                     backgroundColor: 'transparent'
                   }
                 }}
+                onClick={() => setMenuOpen(true)}
               >
                 <IconLibrary iconName="menu" size={24} color="#1f5661" />
               </IconButton>
@@ -197,6 +224,71 @@ const Header: React.FC = () => {
           </Box>
         </Button>
       </Box>
+      {/* Side Navigation Drawer */}
+      <Drawer
+        anchor="left"
+        open={menuOpen}
+        onClose={() => setMenuOpen(false)}
+        ModalProps={{
+          keepMounted: true,
+          BackdropProps: {
+            sx: { backgroundColor: 'rgba(0,0,0,0.5)' } // 50% black tint
+          }
+        }}
+        PaperProps={{
+          sx: {
+            width: '80vw',
+            maxWidth: 360,
+            borderTopRightRadius: 24,
+            borderBottomRightRadius: 24,
+            backgroundColor: '#ffffff',
+            boxShadow: '0px 8px 24px rgba(0,0,0,0.2)'
+          }
+        }}
+      >
+        <Box sx={{ padding: '16px 16px 8px 16px' }}>
+          <Typography
+            sx={{
+              fontFamily: 'Nunito Sans, sans-serif',
+              fontWeight: 600,
+              fontSize: '18px',
+              color: '#1f5661'
+            }}
+          >
+            Menu
+          </Typography>
+        </Box>
+        <Divider />
+        <List sx={{ padding: 0 }}>
+          {navItems.map((item) => {
+            const selected = activePath === item.path || (item.path !== '/' && activePath.startsWith(item.path));
+            return (
+              <ListItemButton
+                key={item.path}
+                onClick={() => goTo(item.path)}
+                sx={{
+                  paddingY: '12px',
+                  '&.Mui-selected': {
+                    backgroundColor: 'rgba(105, 240, 240, 0.12)'
+                  }
+                }}
+                selected={selected}
+              >
+                <ListItemIcon sx={{ minWidth: 40 }}>
+                  <IconLibrary iconName={item.iconName} size={22} color="#1f5661" />
+                </ListItemIcon>
+                <ListItemText
+                  primary={
+                    <Typography sx={{ fontFamily: 'Nunito Sans, sans-serif', color: '#1f5661', fontSize: '16px', fontWeight: 500 }}>
+                      {item.label}
+                    </Typography>
+                  }
+                />
+              </ListItemButton>
+            );
+          })}
+        </List>
+      </Drawer>
     </Box>
   );
 };
