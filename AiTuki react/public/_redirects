@@ -1,5 +1,6 @@
 # Cloudflare Pages Redirects
 # This file goes in the public directory and gets copied to build
 
-# Handle client-side routing for React Router (if you add it later)
-/*    /index.html   200
+# Handle client-side routing for React Router
+# Use root (/) to avoid index.html canonicalization loops
+/*    /   200
