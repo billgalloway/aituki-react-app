@@ -74,18 +74,21 @@ const Header: React.FC = () => {
         }}
       >
             {/* Left side - Hamburger menu */}
-            <Box sx={{ display: 'flex', gap: '16px', alignItems: 'center' }}>
+            <Box sx={{ display: 'flex', gap: '16px', alignItems: 'center', pointerEvents: 'auto' }}>
               <IconButton
                 aria-label="Open menu"
                 sx={{
                   width: 48,
                   height: 48,
                   padding: '12px',
+                  pointerEvents: 'auto',
                   '&:hover': {
                     backgroundColor: 'transparent'
                   }
                 }}
-                onClick={() => setMenuOpen(true)}
+                onClick={(e) => { e.preventDefault(); e.stopPropagation(); setMenuOpen(true); }}
+                onMouseDown={(e) => { e.preventDefault(); e.stopPropagation(); setMenuOpen(true); }}
+                onTouchStart={(e) => { e.preventDefault(); e.stopPropagation(); setMenuOpen(true); }}
               >
                 <IconLibrary iconName="menu" size={24} color="#1f5661" sx={{ pointerEvents: 'none' }} />
               </IconButton>
