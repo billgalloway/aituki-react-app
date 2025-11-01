@@ -86,9 +86,7 @@ const Header: React.FC = () => {
                     backgroundColor: 'transparent'
                   }
                 }}
-                onClick={(e) => { e.preventDefault(); e.stopPropagation(); setMenuOpen(true); }}
-                onMouseDown={(e) => { e.preventDefault(); e.stopPropagation(); setMenuOpen(true); }}
-                onTouchStart={(e) => { e.preventDefault(); e.stopPropagation(); setMenuOpen(true); }}
+                onClick={() => setMenuOpen(true)}
               >
                 <IconLibrary iconName="menu" size={24} color="#1f5661" sx={{ pointerEvents: 'none' }} />
               </IconButton>
@@ -228,6 +226,7 @@ const Header: React.FC = () => {
         onClose={() => setMenuOpen(false)}
         ModalProps={{
           keepMounted: true,
+          style: { zIndex: 2000 },
           BackdropProps: {
             sx: { backgroundColor: 'rgba(0,0,0,0.5)' } // 50% black tint
           }
@@ -239,7 +238,8 @@ const Header: React.FC = () => {
             borderTopRightRadius: 24,
             borderBottomRightRadius: 24,
             backgroundColor: '#ffffff',
-            boxShadow: '0px 8px 24px rgba(0,0,0,0.2)'
+            boxShadow: '0px 8px 24px rgba(0,0,0,0.2)',
+            zIndex: 2100
           }
         }}
       >
