@@ -10,9 +10,8 @@ import {
   Drawer,
   List,
   ListItemButton,
-  ListItemIcon,
-  ListItemText,
-  Divider
+  Divider,
+  Chip
 } from '@mui/material';
 import { useLocation, Link } from 'react-router-dom';
 import IconLibrary from './IconLibrary';
@@ -241,19 +240,40 @@ const Header: React.FC = () => {
           }
         }}
       >
-        <Box sx={{ padding: '16px 16px 8px 16px' }}>
-          <Typography
-            sx={{
-              fontFamily: 'Nunito Sans, sans-serif',
-              fontWeight: 600,
-              fontSize: '18px',
-              color: '#1f5661'
-            }}
-          >
-            Menu
-          </Typography>
+        {/* Drawer Header - Profile and Close */}
+        <Box sx={{ padding: '16px' }}>
+          <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+            <Box sx={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
+              <Avatar sx={{ width: 44, height: 44, border: '2px solid #98ffff' }}>
+                <IconLibrary iconName="user" size={24} color="#1f5661" />
+              </Avatar>
+              <Box sx={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
+                <Typography sx={{ fontFamily: 'Nunito Sans, sans-serif', fontWeight: 600, fontSize: '16px', color: '#1f5661' }}>
+                  Pilar
+                </Typography>
+                <Chip
+                  label="Pro member"
+                  size="small"
+                  sx={{
+                    backgroundColor: '#1f5661',
+                    color: '#ffffff',
+                    height: 20,
+                    '& .MuiChip-label': { paddingX: '6px', fontSize: 12 }
+                  }}
+                />
+              </Box>
+            </Box>
+            <IconButton aria-label="Close menu" onClick={() => setMenuOpen(false)} sx={{ width: 40, height: 40 }}>
+              <IconLibrary iconName="close" size={22} color="#1f5661" />
+            </IconButton>
+          </Box>
         </Box>
         <Divider />
+        <Box sx={{ paddingX: '16px', paddingTop: '12px', paddingBottom: '4px' }}>
+          <Typography sx={{ fontFamily: 'Nunito Sans, sans-serif', fontWeight: 500, fontSize: '12px', color: 'rgba(31,86,97,0.6)', letterSpacing: 1.1 }}>
+            Navigation
+          </Typography>
+        </Box>
         <List sx={{ padding: 0 }}>
           {navItems.map((item) => {
             const selected = activePath === item.path || (item.path !== '/' && activePath.startsWith(item.path));
@@ -271,16 +291,17 @@ const Header: React.FC = () => {
                 }}
                 selected={selected}
               >
-                <ListItemIcon sx={{ minWidth: 40 }}>
-                  <IconLibrary iconName={item.iconName} size={22} color="#1f5661" />
-                </ListItemIcon>
-                <ListItemText
-                  primary={
+                <Box sx={{ display: 'flex', alignItems: 'center', gap: '12px', width: '100%' }}>
+                  <Box sx={{ width: 40, display: 'flex', justifyContent: 'center' }}>
+                    <IconLibrary iconName={item.iconName} size={22} color="#1f5661" />
+                  </Box>
+                  <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flex: 1 }}>
                     <Typography sx={{ fontFamily: 'Nunito Sans, sans-serif', color: '#1f5661', fontSize: '16px', fontWeight: 500 }}>
                       {item.label}
                     </Typography>
-                  }
-                />
+                    <IconLibrary iconName="chevron-right" size={20} color="rgba(31,86,97,0.4)" />
+                  </Box>
+                </Box>
               </ListItemButton>
             );
           })}
