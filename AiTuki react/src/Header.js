@@ -77,17 +77,18 @@ const Header: React.FC = () => {
             {/* Left side - Hamburger menu */}
             <Box sx={{ display: 'flex', gap: '16px', alignItems: 'center' }}>
               <IconButton
+                aria-label="Open menu"
                 sx={{
-                  width: 24,
-                  height: 24,
-                  padding: 0,
+                  width: 40,
+                  height: 40,
+                  padding: '8px',
                   '&:hover': {
                     backgroundColor: 'transparent'
                   }
                 }}
                 onClick={() => setMenuOpen(true)}
               >
-                <IconLibrary iconName="menu" size={24} color="#1f5661" />
+                <IconLibrary iconName="menu" size={24} color="#1f5661" sx={{ pointerEvents: 'none' }} />
               </IconButton>
             </Box>
 
