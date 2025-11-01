@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom/client';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import { Box } from '@mui/material';
-import { BrowserRouter, Routes, Route, useLocation, useNavigate } from 'react-router-dom';
+import { HashRouter, Routes, Route, useLocation, useNavigate } from 'react-router-dom';
 import Header from './Header';
 import LandingContent from './LandingContent';
 import GoalsContent from './GoalsContent';
@@ -93,8 +93,8 @@ const root = ReactDOM.createRoot(
 
 root.render(
   <React.StrictMode>
-    <BrowserRouter>
+    <HashRouter>
       <AppShell />
-    </BrowserRouter>
+    </HashRouter>
   </React.StrictMode>
 );
