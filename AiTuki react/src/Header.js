@@ -71,8 +71,10 @@ const Header: React.FC = () => {
           padding: '16px',
           borderRadius: '0 0 32px 32px',
           flexShrink: 0,
-          width: '100%'
+          width: '100%',
+          cursor: 'pointer'
         }}
+        onClick={() => setMenuOpen(true)}
       >
             {/* Left side - Hamburger menu */}
             <Box sx={{ display: 'flex', gap: '16px', alignItems: 'center' }}>
