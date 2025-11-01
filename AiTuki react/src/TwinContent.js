@@ -71,7 +71,7 @@ const TwinContent = () => {
       {/* Profile Header Section */}
       <Box
         sx={{
-          backgroundColor: '#69f0f0',
+          backgroundColor: '#ffffff',
           borderRadius: '0 0 32px 32px',
           padding: '0 24px 16px 24px',
           boxShadow: '0px 2px 4px -2px rgba(0,0,0,0.2)',
