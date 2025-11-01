@@ -4,6 +4,7 @@ import {
   Paper
 } from '@mui/material';
 import IconLibrary from './IconLibrary';
+import { Link } from 'react-router-dom';
 
 
 const BottomNavigation = ({ activeTab, onTabChange }) => {
@@ -11,27 +12,32 @@ const BottomNavigation = ({ activeTab, onTabChange }) => {
     {
       name: 'home',
       icon: 'workbench',
-      iconName: 'home'
+      iconName: 'home',
+      to: '/'
     },
     {
       name: 'target',
       icon: 'trace',
-      iconName: 'target'
+      iconName: 'target',
+      to: '/goals'
     },
     {
       name: 'data',
       icon: 'watch',
-      iconName: 'data'
+      iconName: 'data',
+      to: '/data'
     },
     {
       name: 'measure',
       icon: 'heartRate',
-      iconName: 'heart'
+      iconName: 'heart',
+      to: '/health'
     },
     {
       name: 'tuki',
       icon: 'jump',
-      iconName: 'person'
+      iconName: 'person',
+      to: '/twin'
     }
   ];
 
@@ -64,14 +70,9 @@ const BottomNavigation = ({ activeTab, onTabChange }) => {
         return (
           <Box
             key={index}
-            onClick={(e) => {
-              e.preventDefault();
-              e.stopPropagation();
-              handleTabClick(item.name);
-            }}
-            onMouseDown={(e) => {
-              e.preventDefault();
-            }}
+            component={Link}
+            to={item.to}
+            onClick={() => handleTabClick(item.name)}
             sx={{
               position: 'relative',
               display: 'flex',
@@ -88,6 +89,7 @@ const BottomNavigation = ({ activeTab, onTabChange }) => {
               pointerEvents: 'auto',
               minWidth: '48px',
               minHeight: '48px',
+              textDecoration: 'none',
               '&:hover': {
                 backgroundColor: isActive ? '#27cccc' : 'rgba(39, 204, 204, 0.1)'
               },
