@@ -14,7 +14,7 @@ import {
   ListItemText,
   Divider
 } from '@mui/material';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, Link } from 'react-router-dom';
 import IconLibrary from './IconLibrary';
 
 // Image assets from Figma
@@ -24,7 +24,6 @@ const arrowIcon3 = "https://www.figma.com/api/mcp/asset/ae8ed121-834c-463e-9b6a-
 
 const Header: React.FC = () => {
   const [menuOpen, setMenuOpen] = useState(false);
-  const navigate = useNavigate();
   const location = useLocation();
 
   const activePath = location.pathname;
@@ -36,11 +35,6 @@ const Header: React.FC = () => {
     { label: 'Health', path: '/health', iconName: 'heart' },
     { label: 'Twin', path: '/twin', iconName: 'person' }
   ]), []);
-
-  const goTo = (path) => {
-    setMenuOpen(false);
-    if (activePath !== path) navigate(path);
-  };
 
   return (
     <Box
@@ -265,7 +259,9 @@ const Header: React.FC = () => {
             return (
               <ListItemButton
                 key={item.path}
-                onClick={() => goTo(item.path)}
+                component={Link}
+                to={item.path}
+                onClick={() => setMenuOpen(false)}
                 sx={{
                   paddingY: '12px',
                   '&.Mui-selected': {
