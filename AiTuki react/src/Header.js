@@ -71,19 +71,17 @@ const Header: React.FC = () => {
           padding: '16px',
           borderRadius: '0 0 32px 32px',
           flexShrink: 0,
-          width: '100%',
-          cursor: 'pointer'
+          width: '100%'
         }}
-        onClick={() => setMenuOpen(true)}
       >
             {/* Left side - Hamburger menu */}
             <Box sx={{ display: 'flex', gap: '16px', alignItems: 'center' }}>
               <IconButton
                 aria-label="Open menu"
                 sx={{
-                  width: 40,
-                  height: 40,
-                  padding: '8px',
+                  width: 48,
+                  height: 48,
+                  padding: '12px',
                   '&:hover': {
                     backgroundColor: 'transparent'
                   }
