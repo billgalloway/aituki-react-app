@@ -13,7 +13,8 @@ import {
   Divider,
   Chip,
   ListItemText,
-  ListItemIcon
+  ListItemIcon,
+  Card
 } from '@mui/material';
 import { useLocation, Link } from 'react-router-dom';
 import IconLibrary from './IconLibrary';
@@ -338,131 +339,362 @@ const Header: React.FC = () => {
         }}
         PaperProps={{
           sx: {
-            width: '80vw',
-            maxWidth: 400,
-            borderTopLeftRadius: 24,
-            borderBottomLeftRadius: 24,
+            width: '100vw',
+            maxWidth: 393,
+            borderTopLeftRadius: 0,
+            borderBottomLeftRadius: 0,
             backgroundColor: '#ffffff',
-            boxShadow: '0px 8px 24px rgba(0,0,0,0.2)',
+            boxShadow: 'none',
             zIndex: 2100
           }
         }}
       >
-        {/* Alerts Header */}
-        <Box sx={{ padding: '16px' }}>
-          <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-            <Typography sx={{ fontFamily: 'Nunito Sans, sans-serif', fontWeight: 600, fontSize: '20px', color: '#1f5661' }}>
-              Notifications
-            </Typography>
-            <IconButton aria-label="Close alerts" onClick={() => setAlertsOpen(false)} sx={{ width: 40, height: 40 }}>
-              <IconLibrary iconName="close" size={22} color="#1f5661" />
-            </IconButton>
-          </Box>
+        {/* Header with close button */}
+        <Box
+          sx={{
+            backgroundColor: '#69f0f0',
+            padding: '32px 12px 12px 12px',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            position: 'sticky',
+            top: 0,
+            zIndex: 2
+          }}
+        >
+          <IconButton
+            aria-label="Close alerts"
+            onClick={() => setAlertsOpen(false)}
+            sx={{
+              width: 40,
+              height: 40,
+              padding: '8px',
+              borderRadius: '100px',
+              backgroundColor: 'transparent',
+              '&:hover': {
+                backgroundColor: 'rgba(31, 86, 97, 0.1)'
+              }
+            }}
+          >
+            <IconLibrary iconName="close" size={20} color="#1f5661" />
+          </IconButton>
+          <IconButton
+            sx={{
+              width: 40,
+              height: 40,
+              padding: '8px',
+              borderRadius: '100px',
+              backgroundColor: 'transparent',
+              '&:hover': {
+                backgroundColor: 'rgba(31, 86, 97, 0.1)'
+              }
+            }}
+          >
+            <IconLibrary iconName="more-vert" size={20} color="#1f5661" />
+          </IconButton>
         </Box>
-        <Divider />
 
-        {/* Alerts List */}
-        <List sx={{ padding: 0 }}>
-          <ListItemButton sx={{ paddingY: '16px', paddingX: '16px' }}>
-            <ListItemIcon sx={{ minWidth: 40 }}>
-              <IconLibrary iconName="target" size={24} color="#69f0f0" />
-            </ListItemIcon>
-            <ListItemText
-              primary="New goal suggestion"
-              secondary="Based on your recent activity"
-              primaryTypographyProps={{
-                sx: {
-                  fontFamily: 'Nunito Sans, sans-serif',
-                  fontWeight: 500,
-                  fontSize: '16px',
-                  color: '#1f5661'
-                }
-              }}
-              secondaryTypographyProps={{
-                sx: {
-                  fontFamily: 'Nunito Sans, sans-serif',
-                  fontSize: '14px',
-                  color: 'rgba(31,86,97,0.6)'
-                }
-              }}
-            />
-          </ListItemButton>
-          <Divider />
-          <ListItemButton sx={{ paddingY: '16px', paddingX: '16px' }}>
-            <ListItemIcon sx={{ minWidth: 40 }}>
-              <IconLibrary iconName="data" size={24} color="#ef6c00" />
-            </ListItemIcon>
-            <ListItemText
-              primary="Weekly report ready"
-              secondary="View your health insights"
-              primaryTypographyProps={{
-                sx: {
-                  fontFamily: 'Nunito Sans, sans-serif',
-                  fontWeight: 500,
-                  fontSize: '16px',
-                  color: '#1f5661'
-                }
-              }}
-              secondaryTypographyProps={{
-                sx: {
-                  fontFamily: 'Nunito Sans, sans-serif',
-                  fontSize: '14px',
-                  color: 'rgba(31,86,97,0.6)'
-                }
-              }}
-            />
-          </ListItemButton>
-          <Divider />
-          <ListItemButton sx={{ paddingY: '16px', paddingX: '16px' }}>
-            <ListItemIcon sx={{ minWidth: 40 }}>
-              <IconLibrary iconName="heart" size={24} color="#ef6c00" />
-            </ListItemIcon>
-            <ListItemText
-              primary="Hydration reminder"
-              secondary="Time to drink water"
-              primaryTypographyProps={{
-                sx: {
-                  fontFamily: 'Nunito Sans, sans-serif',
-                  fontWeight: 500,
-                  fontSize: '16px',
-                  color: '#1f5661'
-                }
-              }}
-              secondaryTypographyProps={{
-                sx: {
-                  fontFamily: 'Nunito Sans, sans-serif',
-                  fontSize: '14px',
-                  color: 'rgba(31,86,97,0.6)'
-                }
-              }}
-            />
-          </ListItemButton>
-          <Divider />
-          <ListItemButton sx={{ paddingY: '16px', paddingX: '16px' }}>
-            <ListItemIcon sx={{ minWidth: 40 }}>
-              <IconLibrary iconName="person" size={24} color="#69f0f0" />
-            </ListItemIcon>
-            <ListItemText
-              primary="Achievement unlocked"
-              secondary="Great progress on your goals!"
-              primaryTypographyProps={{
-                sx: {
-                  fontFamily: 'Nunito Sans, sans-serif',
-                  fontWeight: 500,
-                  fontSize: '16px',
-                  color: '#1f5661'
-                }
-              }}
-              secondaryTypographyProps={{
-                sx: {
-                  fontFamily: 'Nunito Sans, sans-serif',
-                  fontSize: '14px',
-                  color: 'rgba(31,86,97,0.6)'
-                }
-              }}
-            />
-          </ListItemButton>
-        </List>
+        {/* Messages List with scrolling */}
+        <Box
+          sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '16px',
+            padding: '12px',
+            overflowY: 'auto',
+            flex: 1,
+            maxHeight: 'calc(100vh - 80px)'
+          }}
+        >
+          {/* Information Message */}
+          <Card
+            sx={{
+              backgroundColor: '#ffffff',
+              border: '1px solid #0288d1',
+              borderRadius: '8px',
+              overflow: 'hidden',
+              position: 'relative'
+            }}
+          >
+            <Box sx={{ display: 'flex', gap: '8px' }}>
+              <Box sx={{ backgroundColor: 'rgba(2, 136, 209, 0.5)', width: '8px' }} />
+              <Box sx={{ flex: 1, padding: '8px 8px 8px 0' }}>
+                <Box sx={{ display: 'flex', gap: '4px', alignItems: 'center', marginBottom: '8px' }}>
+                  <Box sx={{ padding: '7px 0' }}>
+                    <IconLibrary iconName="info" size={22} color="#0288d1" />
+                  </Box>
+                  <Typography
+                    sx={{
+                      fontFamily: 'Nunito Sans, sans-serif',
+                      fontWeight: 700,
+                      fontSize: '14px',
+                      color: 'rgba(31,86,97,0.6)',
+                      flex: 1
+                    }}
+                  >
+                    Information
+                  </Typography>
+                  <Typography
+                    sx={{
+                      fontFamily: 'Nunito Sans, sans-serif',
+                      fontSize: '12px',
+                      color: 'rgba(31,86,97,0.6)',
+                      textAlign: 'right'
+                    }}
+                  >
+                    Issue ID: 23456 - April 3rd 18:34
+                  </Typography>
+                </Box>
+                <Typography
+                  sx={{
+                    fontFamily: 'Nunito Sans, sans-serif',
+                    fontWeight: 700,
+                    fontSize: '14px',
+                    color: '#1f5661',
+                    letterSpacing: '0.1px',
+                    marginBottom: '4px'
+                  }}
+                >
+                  Behavioral Guidance & Motivation
+                </Typography>
+                <Typography
+                  sx={{
+                    fontFamily: 'Nunito Sans, sans-serif',
+                    fontSize: '14px',
+                    color: '#1f5661',
+                    marginBottom: '4px'
+                  }}
+                >
+                  Status: <span style={{ fontWeight: 400 }}>Advisory</span>
+                </Typography>
+                <Typography
+                  sx={{
+                    fontFamily: 'Nunito Sans, sans-serif',
+                    fontSize: '14px',
+                    color: '#1f5661',
+                    fontWeight: 400,
+                    lineHeight: '20px'
+                  }}
+                >
+                  Dynamic motivational support: encouragement, celebration of milestones, re-alignment.
+                </Typography>
+              </Box>
+            </Box>
+          </Card>
+
+          {/* Confirmation Message */}
+          <Card
+            sx={{
+              backgroundColor: '#ffffff',
+              border: '1px solid #4caf50',
+              borderRadius: '8px',
+              overflow: 'hidden',
+              position: 'relative'
+            }}
+          >
+            <Box sx={{ display: 'flex', gap: '8px' }}>
+              <Box sx={{ backgroundColor: 'rgba(76, 175, 80, 0.5)', width: '8px', height: '128px' }} />
+              <Box sx={{ flex: 1, padding: '8px 8px 8px 0' }}>
+                <Box sx={{ display: 'flex', gap: '4px', alignItems: 'center', marginBottom: '8px' }}>
+                  <Box sx={{ padding: '7px 0' }}>
+                    <IconLibrary iconName="check-circle" size={22} color="#4caf50" />
+                  </Box>
+                  <Typography
+                    sx={{
+                      fontFamily: 'Nunito Sans, sans-serif',
+                      fontWeight: 700,
+                      fontSize: '14px',
+                      color: 'rgba(31,86,97,0.6)',
+                      flex: 1
+                    }}
+                  >
+                    Confirmation
+                  </Typography>
+                  <Typography
+                    sx={{
+                      fontFamily: 'Nunito Sans, sans-serif',
+                      fontSize: '12px',
+                      color: 'rgba(31,86,97,0.6)',
+                      textAlign: 'right'
+                    }}
+                  >
+                    Issue ID: 23456 - April 3rd 18:34
+                  </Typography>
+                </Box>
+                <Typography
+                  sx={{
+                    fontFamily: 'Nunito Sans, sans-serif',
+                    fontWeight: 700,
+                    fontSize: '14px',
+                    color: '#1f5661',
+                    letterSpacing: '0.1px',
+                    marginBottom: '4px'
+                  }}
+                >
+                  Personalized Coaching & Nudges
+                </Typography>
+                <Typography
+                  sx={{
+                    fontFamily: 'Nunito Sans, sans-serif',
+                    fontSize: '14px',
+                    color: '#1f5661',
+                    marginBottom: '4px'
+                  }}
+                >
+                  Status: <span style={{ fontWeight: 400 }}>Complete</span>
+                </Typography>
+                <Typography
+                  sx={{
+                    fontFamily: 'Nunito Sans, sans-serif',
+                    fontSize: '14px',
+                    color: '#1f5661',
+                    fontWeight: 400,
+                    lineHeight: '20px'
+                  }}
+                >
+                  Well done you have completed your target for today 11,234 steps.
+                </Typography>
+              </Box>
+            </Box>
+          </Card>
+
+          {/* Alert Message */}
+          <Card
+            sx={{
+              backgroundColor: '#ffffff',
+              border: '1px solid #d32f2f',
+              borderRadius: '8px',
+              overflow: 'hidden',
+              position: 'relative'
+            }}
+          >
+            <Box sx={{ display: 'flex', gap: '8px' }}>
+              <Box sx={{ backgroundColor: 'rgba(211, 47, 47, 0.5)', width: '8px', height: '128px' }} />
+              <Box sx={{ flex: 1, padding: '8px 8px 8px 0' }}>
+                <Box sx={{ display: 'flex', gap: '4px', alignItems: 'center', marginBottom: '8px' }}>
+                  <Box sx={{ padding: '7px 0' }}>
+                    <IconLibrary iconName="warning" size={22} color="#d32f2f" />
+                  </Box>
+                  <Typography
+                    sx={{
+                      fontFamily: 'Nunito Sans, sans-serif',
+                      fontWeight: 700,
+                      fontSize: '14px',
+                      color: '#d32f2f',
+                      flex: 1
+                    }}
+                  >
+                    Alert
+                  </Typography>
+                  <Typography
+                    sx={{
+                      fontFamily: 'Nunito Sans, sans-serif',
+                      fontSize: '12px',
+                      color: 'rgba(31,86,97,0.6)',
+                      textAlign: 'right'
+                    }}
+                  >
+                    Issue ID: 23456 - April 3rd 18:34
+                  </Typography>
+                </Box>
+                <Typography
+                  sx={{
+                    fontFamily: 'Nunito Sans, sans-serif',
+                    fontWeight: 400,
+                    fontSize: '14px',
+                    color: '#1f5661',
+                    lineHeight: '20px',
+                    letterSpacing: '0.17px'
+                  }}
+                >
+                  <span style={{ fontWeight: 700 }}>Early warning</span>
+                  <br />
+                  Status: <span style={{ fontWeight: 400 }}>ask advice</span>
+                  <br />
+                  High blood pressure this might indicate illness, fatigue, stress, or chronic disease flare-ups.
+                </Typography>
+              </Box>
+            </Box>
+          </Card>
+
+          {/* Warning Message */}
+          <Card
+            sx={{
+              backgroundColor: '#ffffff',
+              border: '1px solid #ef6c00',
+              borderRadius: '8px',
+              overflow: 'hidden',
+              position: 'relative'
+            }}
+          >
+            <Box sx={{ display: 'flex', gap: '8px' }}>
+              <Box sx={{ backgroundColor: 'rgba(239, 108, 0, 0.5)', width: '8px', height: '128px' }} />
+              <Box sx={{ flex: 1, padding: '8px 8px 8px 0' }}>
+                <Box sx={{ display: 'flex', gap: '4px', alignItems: 'center', marginBottom: '8px' }}>
+                  <Box sx={{ padding: '7px 0' }}>
+                    <IconLibrary iconName="info" size={22} color="#ef6c00" />
+                  </Box>
+                  <Typography
+                    sx={{
+                      fontFamily: 'Nunito Sans, sans-serif',
+                      fontWeight: 700,
+                      fontSize: '14px',
+                      color: 'rgba(31,86,97,0.6)',
+                      flex: 1
+                    }}
+                  >
+                    Warning
+                  </Typography>
+                  <Typography
+                    sx={{
+                      fontFamily: 'Nunito Sans, sans-serif',
+                      fontSize: '12px',
+                      color: 'rgba(31,86,97,0.6)',
+                      textAlign: 'right'
+                    }}
+                  >
+                    Issue ID: 23456 - April 3rd 18:34
+                  </Typography>
+                </Box>
+                <Typography
+                  sx={{
+                    fontFamily: 'Nunito Sans, sans-serif',
+                    fontWeight: 700,
+                    fontSize: '14px',
+                    color: '#1f5661',
+                    letterSpacing: '0.1px',
+                    marginBottom: '4px',
+                    lineHeight: '20px'
+                  }}
+                >
+                  Clinical Integration
+                </Typography>
+                <Typography
+                  sx={{
+                    fontFamily: 'Nunito Sans, sans-serif',
+                    fontSize: '14px',
+                    color: '#1f5661',
+                    marginBottom: '4px',
+                    lineHeight: '20px'
+                  }}
+                >
+                  Status: <span style={{ fontWeight: 400 }}>Awaiting response</span>
+                </Typography>
+                <Typography
+                  sx={{
+                    fontFamily: 'Nunito Sans, sans-serif',
+                    fontSize: '14px',
+                    color: '#1f5661',
+                    fontWeight: 400,
+                    lineHeight: '20px'
+                  }}
+                >
+                  Alerting you to medication interactions or gaps in treatment.
+                </Typography>
+              </Box>
+            </Box>
+          </Card>
+        </Box>
       </Drawer>
     </Box>
   );
