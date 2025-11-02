@@ -11,7 +11,9 @@ import {
   List,
   ListItemButton,
   Divider,
-  Chip
+  Chip,
+  ListItemText,
+  ListItemIcon
 } from '@mui/material';
 import { useLocation, Link } from 'react-router-dom';
 import IconLibrary from './IconLibrary';
@@ -23,6 +25,7 @@ const arrowIcon3 = "https://www.figma.com/api/mcp/asset/ae8ed121-834c-463e-9b6a-
 
 const Header: React.FC = () => {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [alertsOpen, setAlertsOpen] = useState(false);
   const location = useLocation();
 
   const activePath = location.pathname;
@@ -94,43 +97,53 @@ const Header: React.FC = () => {
 
             {/* Right side - Avatar with badge */}
             <Box sx={{ display: 'flex', gap: '16px', alignItems: 'center' }}>
-              <Badge
-                overlap="circular"
-                anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
-                badgeContent={
-                  <Box
+              <IconButton
+                onClick={() => setAlertsOpen(true)}
+                sx={{
+                  padding: 0,
+                  '&:hover': {
+                    backgroundColor: 'transparent'
+                  }
+                }}
+              >
+                <Badge
+                  overlap="circular"
+                  anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+                  badgeContent={
+                    <Box
+                      sx={{
+                        backgroundColor: '#ef6c00', // Warning main color
+                        color: '#ffffff',
+                        borderRadius: '100px',
+                        minWidth: '12px',
+                        height: '12px',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        fontSize: '12px',
+                        fontWeight: 500,
+                        fontFamily: 'Nunito Sans, sans-serif',
+                        padding: '0 6.5px'
+                      }}
+                    >
+                      4
+                    </Box>
+                  }
+                >
+                  <Avatar
                     sx={{
-                      backgroundColor: '#ef6c00', // Warning main color
-                      color: '#ffffff',
-                      borderRadius: '100px',
-                      minWidth: '12px',
-                      height: '12px',
+                      width: 40,
+                      height: 40,
+                      backgroundColor: '#98ffff', // Primary light color
                       display: 'flex',
                       alignItems: 'center',
-                      justifyContent: 'center',
-                      fontSize: '12px',
-                      fontWeight: 500,
-                      fontFamily: 'Nunito Sans, sans-serif',
-                      padding: '0 6.5px'
+                      justifyContent: 'center'
                     }}
                   >
-                    4
-                  </Box>
-                }
-              >
-                <Avatar
-                  sx={{
-                    width: 40,
-                    height: 40,
-                    backgroundColor: '#98ffff', // Primary light color
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center'
-                  }}
-                >
-                  <IconLibrary iconName="user" size={24} color="#1f5661" />
-                </Avatar>
-              </Badge>
+                    <IconLibrary iconName="user" size={24} color="#1f5661" />
+                  </Avatar>
+                </Badge>
+              </IconButton>
             </Box>
       </Container>
 
@@ -308,6 +321,147 @@ const Header: React.FC = () => {
               </ListItemButton>
             );
           })}
+        </List>
+      </Drawer>
+
+      {/* Alerts/Notifications Drawer - Slides from right */}
+      <Drawer
+        anchor="right"
+        open={alertsOpen}
+        onClose={() => setAlertsOpen(false)}
+        ModalProps={{
+          keepMounted: true,
+          style: { zIndex: 2000 },
+          BackdropProps: {
+            sx: { backgroundColor: 'rgba(0,0,0,0.5)' } // 50% black tint
+          }
+        }}
+        PaperProps={{
+          sx: {
+            width: '80vw',
+            maxWidth: 400,
+            borderTopLeftRadius: 24,
+            borderBottomLeftRadius: 24,
+            backgroundColor: '#ffffff',
+            boxShadow: '0px 8px 24px rgba(0,0,0,0.2)',
+            zIndex: 2100
+          }
+        }}
+      >
+        {/* Alerts Header */}
+        <Box sx={{ padding: '16px' }}>
+          <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+            <Typography sx={{ fontFamily: 'Nunito Sans, sans-serif', fontWeight: 600, fontSize: '20px', color: '#1f5661' }}>
+              Notifications
+            </Typography>
+            <IconButton aria-label="Close alerts" onClick={() => setAlertsOpen(false)} sx={{ width: 40, height: 40 }}>
+              <IconLibrary iconName="close" size={22} color="#1f5661" />
+            </IconButton>
+          </Box>
+        </Box>
+        <Divider />
+
+        {/* Alerts List */}
+        <List sx={{ padding: 0 }}>
+          <ListItemButton sx={{ paddingY: '16px', paddingX: '16px' }}>
+            <ListItemIcon sx={{ minWidth: 40 }}>
+              <IconLibrary iconName="target" size={24} color="#69f0f0" />
+            </ListItemIcon>
+            <ListItemText
+              primary="New goal suggestion"
+              secondary="Based on your recent activity"
+              primaryTypographyProps={{
+                sx: {
+                  fontFamily: 'Nunito Sans, sans-serif',
+                  fontWeight: 500,
+                  fontSize: '16px',
+                  color: '#1f5661'
+                }
+              }}
+              secondaryTypographyProps={{
+                sx: {
+                  fontFamily: 'Nunito Sans, sans-serif',
+                  fontSize: '14px',
+                  color: 'rgba(31,86,97,0.6)'
+                }
+              }}
+            />
+          </ListItemButton>
+          <Divider />
+          <ListItemButton sx={{ paddingY: '16px', paddingX: '16px' }}>
+            <ListItemIcon sx={{ minWidth: 40 }}>
+              <IconLibrary iconName="data" size={24} color="#ef6c00" />
+            </ListItemIcon>
+            <ListItemText
+              primary="Weekly report ready"
+              secondary="View your health insights"
+              primaryTypographyProps={{
+                sx: {
+                  fontFamily: 'Nunito Sans, sans-serif',
+                  fontWeight: 500,
+                  fontSize: '16px',
+                  color: '#1f5661'
+                }
+              }}
+              secondaryTypographyProps={{
+                sx: {
+                  fontFamily: 'Nunito Sans, sans-serif',
+                  fontSize: '14px',
+                  color: 'rgba(31,86,97,0.6)'
+                }
+              }}
+            />
+          </ListItemButton>
+          <Divider />
+          <ListItemButton sx={{ paddingY: '16px', paddingX: '16px' }}>
+            <ListItemIcon sx={{ minWidth: 40 }}>
+              <IconLibrary iconName="heart" size={24} color="#ef6c00" />
+            </ListItemIcon>
+            <ListItemText
+              primary="Hydration reminder"
+              secondary="Time to drink water"
+              primaryTypographyProps={{
+                sx: {
+                  fontFamily: 'Nunito Sans, sans-serif',
+                  fontWeight: 500,
+                  fontSize: '16px',
+                  color: '#1f5661'
+                }
+              }}
+              secondaryTypographyProps={{
+                sx: {
+                  fontFamily: 'Nunito Sans, sans-serif',
+                  fontSize: '14px',
+                  color: 'rgba(31,86,97,0.6)'
+                }
+              }}
+            />
+          </ListItemButton>
+          <Divider />
+          <ListItemButton sx={{ paddingY: '16px', paddingX: '16px' }}>
+            <ListItemIcon sx={{ minWidth: 40 }}>
+              <IconLibrary iconName="person" size={24} color="#69f0f0" />
+            </ListItemIcon>
+            <ListItemText
+              primary="Achievement unlocked"
+              secondary="Great progress on your goals!"
+              primaryTypographyProps={{
+                sx: {
+                  fontFamily: 'Nunito Sans, sans-serif',
+                  fontWeight: 500,
+                  fontSize: '16px',
+                  color: '#1f5661'
+                }
+              }}
+              secondaryTypographyProps={{
+                sx: {
+                  fontFamily: 'Nunito Sans, sans-serif',
+                  fontSize: '14px',
+                  color: 'rgba(31,86,97,0.6)'
+                }
+              }}
+            />
+          </ListItemButton>
         </List>
       </Drawer>
     </Box>
