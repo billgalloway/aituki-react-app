@@ -12,8 +12,6 @@ import {
   ListItemButton,
   Divider,
   Chip,
-  ListItemText,
-  ListItemIcon,
   Card
 } from '@mui/material';
 import { useLocation, Link } from 'react-router-dom';

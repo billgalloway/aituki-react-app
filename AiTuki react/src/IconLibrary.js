@@ -33,6 +33,8 @@ const IconLibrary = ({
     'water': 'water_drop',
     'medicine': 'local_pharmacy',
     'pill': 'medication',
+    'brain': 'psychology',
+    'psychology': 'psychology',
     
     // Activity & Sports
     'running': 'directions_run',
@@ -115,6 +117,8 @@ const IconLibrary = ({
     'youtube': 'youtube',
     'linkedin': 'linkedin',
     'github': 'github',
+    'group': 'group',
+    'community': 'group',
     
     // Business & Finance
     'money': 'attach_money',

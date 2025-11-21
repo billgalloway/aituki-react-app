@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useState } from 'react';
 import ReactDOM from 'react-dom/client';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -11,6 +11,7 @@ import DataContent from './DataContent';
 import HealthContent from './HealthContent';
 import TwinContent from './TwinContent';
 import BottomNavigation from './BottomNavigation';
+import OnboardingContent from './OnboardingContent';
 
 // Create a custom theme to match the Figma design
 const theme = createTheme({
@@ -61,11 +62,36 @@ const AppShell = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const activeTab = useMemo(() => tabForPath(location.pathname), [location.pathname]);
+  const [onboardingComplete, setOnboardingComplete] = useState(() => {
+    // Check if onboarding has been completed
+    const completed = localStorage.getItem('onboardingComplete');
+    return completed === 'true';
+  });
 
   const handleTabChange = (tab: string) => {
     const path = pathForTab[tab] ?? '/';
     if (location.pathname !== path) navigate(path);
   };
+
+  const handleOnboardingComplete = () => {
+    localStorage.setItem('onboardingComplete', 'true');
+    setOnboardingComplete(true);
+    navigate('/data');
+  };
+
+  // Show onboarding if not completed
+  if (!onboardingComplete) {
+    return (
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
+        <Box sx={{ height: '100vh', overflow: 'auto', display: 'flex', flexDirection: 'column', backgroundColor: '#ffffff' }}>
+          <Box sx={{ flex: 1, overflowY: 'auto', overflowX: 'hidden' }}>
+            <OnboardingContent onComplete={handleOnboardingComplete} />
+          </Box>
+        </Box>
+      </ThemeProvider>
+    );
+  }
 
   return (
     <ThemeProvider theme={theme}>
